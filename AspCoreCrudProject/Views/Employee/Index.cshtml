@@ -1,0 +1,85 @@
+﻿@model IEnumerable<AspCoreCrudProject.Models.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Employee List</h1>
+@{
+    var successMessage = TempData["SuccessMessage"] as string;
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <script>
+        alert("@successMessage")
+        </script>
+    }
+}
+<p>
+    <a asp-action="Create">Create New </a>
+</p>
+@if (!Model.Any())
+{
+    <div class="alert alert-info" role="alert">
+        No employees found.
+    </div>
+}
+else{
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Emp_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Emp_Age)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Emp_Gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Emp_JoiningDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Designation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Emp_Salary)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Emp_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Emp_Age)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Emp_Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Emp_JoiningDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Designation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Emp_Salary)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Emp_Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Emp_Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Emp_Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+}
+

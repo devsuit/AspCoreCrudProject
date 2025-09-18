@@ -74,12 +74,20 @@ else{
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Emp_Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Emp_Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Emp_Id">Delete</a>
+                            <a href="javascript:void(0)" onclick="conformDelete(@item.Emp_Id)">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-}
-}
+    }
+    }
+   <script>
+        function conformDelete(id) {
+            if (confirm("Are you sure you want to delete this employee?")) {
+                window.location.href = '/Employee/Delete/' + id;
+            }
+        }
+        </script>
+
 

@@ -35,5 +35,59 @@ namespace AspCoreCrudProject.Controllers
             }
             return View(Obj);
         }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var emp = await _Db.tblEmployees.FindAsync(id);
+            if (emp == null)
+            {
+                return NotFound();
+            }
+            return View(emp);
+        }
+        [HttpPost]
+    public async Task<IActionResult> Edit(Employee obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _Db.tblEmployees.Update(obj);
+                await _Db.SaveChangesAsync();
+                TempData["success"] = "Employee Updated Successfully";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var emp = await _Db.tblEmployees.FindAsync(id);
+            if (emp == null)
+            {
+                return NotFound();
+            }
+            return View(emp);
+        }
+
+        public async Task<IActionResult> Delete (int id)
+            {
+            var emp = await _Db.tblEmployees.FindAsync(id);
+            if (emp == null)
+            {
+                return NotFound();
+            }
+            _Db.tblEmployees.Remove(emp);
+            await _Db.SaveChangesAsync();
+            TempData["success"] = "Employee Deleted Successfully";
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }
